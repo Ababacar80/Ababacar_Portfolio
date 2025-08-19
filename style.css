@@ -34,7 +34,6 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 30px;
-    margin-bottom: 25px;
 }
 
 .profile-photo {
@@ -42,12 +41,13 @@ body {
 }
 
 .profile-img {
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
     border-radius: 15px;
     object-fit: cover;
     border: 3px solid #667eea;
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    display: block;
 }
 
 .profile-info {
@@ -89,9 +89,10 @@ body {
 
 .contact-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    margin-top: 20px;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .contact-item {
@@ -101,13 +102,12 @@ body {
     gap: 8px;
     color: #555;
     text-decoration: none;
-    padding: 12px 16px;
+    padding: 15px 20px;
     background: rgba(102, 126, 234, 0.1);
-    border-radius: 10px;
+    border-radius: 12px;
     transition: all 0.3s ease;
     font-weight: 500;
     border: 2px solid transparent;
-    font-size: 0.9rem;
 }
 
 .contact-item:hover {
@@ -628,8 +628,8 @@ body {
     }
 
     .profile-img {
-        width: 120px;
-        height: 120px;
+        width: 140px;
+        height: 140px;
     }
 
     .profile-description p {
@@ -639,12 +639,12 @@ body {
     
     .contact-info {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 12px;
+        max-width: 400px;
     }
 
     .contact-item {
-        padding: 10px 12px;
-        font-size: 0.85rem;
+        padding: 12px 15px;
     }
     
     .project-header {
@@ -682,8 +682,8 @@ body {
     }
 
     .profile-img {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         border-radius: 12px;
     }
 
