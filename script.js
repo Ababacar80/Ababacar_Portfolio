@@ -538,3 +538,45 @@ function setGauge(value) {
 
 // Exemple : anime la jauge à 75%
 setGauge(75);
+
+
+function animateSkills(entries, observer) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      let circular = entry.target;
+      let percent = parseInt(circular.getAttribute("data-progress"));
+      let circle = circular.querySelector(".progress-ring__progress");
+      let text = circular.querySelector(".progress-text");
+
+      let radius = 54;
+      let circumference = 2 * Math.PI * radius;
+      circle.style.strokeDasharray = circumference;
+      circle.style.strokeDashoffset = circumference;
+
+      // animation du cercle
+      setTimeout(() => {
+        let offset = circumference - (percent / 100) * circumference;
+        circle.style.strokeDashoffset = offset;
+      }, 100);
+
+      // animation du texte %
+      let count = 0;
+      let interval = setInterval(() => {
+        if (count <= percent) {
+          text.textContent = count + "%";
+          count++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 15);
+
+      observer.unobserve(circular); // n’anime qu’une fois
+    }
+  });
+}
+
+let skillobserver = new IntersectionObserver(animateSkills, {
+  threshold: 0.5
+});
+
+document.querySelectorAll(".circular-progress").forEach(el => observer.observe(el));
