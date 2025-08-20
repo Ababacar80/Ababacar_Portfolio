@@ -714,3 +714,41 @@ body {
         font-size: 0.7rem;
     }
 }
+
+.gauge {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: auto;
+}
+
+.circular-chart {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: auto;
+}
+
+.bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 10;
+}
+
+.progress {
+  fill: none;
+  stroke: #4caf50;
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 339.292; /* 2πr = 2 * π * 54 */
+  stroke-dashoffset: 339.292;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.gauge-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  font-weight: bold;
+}

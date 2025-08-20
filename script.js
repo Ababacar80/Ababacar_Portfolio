@@ -519,3 +519,22 @@ document.addEventListener('DOMContentLoaded', () => {
         timestamp: Date.now()
     });
 });
+
+function setGauge(value) {
+  const circle = document.querySelector('.progress');
+  const text = document.getElementById('gauge-value');
+
+  const radius = circle.r.baseVal.value;
+  const circumference = 2 * Math.PI * radius;
+
+  circle.style.strokeDasharray = circumference;
+  circle.style.strokeDashoffset = circumference;
+
+  const offset = circumference - (value / 100) * circumference;
+  circle.style.strokeDashoffset = offset;
+
+  text.textContent = value + "%";
+}
+
+// Exemple : anime la jauge à 75%
+setGauge(75);
