@@ -165,6 +165,8 @@ body {
     width: 100%;
     height: 100%;
     transform: rotate(-90deg);
+    display: block !important;
+    overflow: visible;
 }
 
 .progress-ring__circle {
@@ -177,7 +179,7 @@ body {
 }
 
 .progress-ring__progress {
-    stroke: url(#gradient);
+    stroke: #667eea;
     stroke-width: 6;
     stroke-linecap: round;
     fill: transparent;
@@ -187,10 +189,11 @@ body {
     stroke-dasharray: 220;
     stroke-dashoffset: 220;
     transition: stroke-dashoffset 2s ease-in-out;
+    display: block !important;
 }
 
 .progress-ring__progress.animate {
-    animation: drawProgress 2s ease-in-out forwards;
+    stroke-dashoffset: var(--progress);
 }
 
 .progress-text {
@@ -547,6 +550,17 @@ body {
     transform: scale(1);
 }
 
+/* ===== FALLBACK POUR BACKDROP-FILTER ===== */
+@supports not (backdrop-filter: blur(10px)) {
+    .header,
+    .skills-section,
+    .projects-section,
+    .education-section,
+    .footer {
+        background: rgba(255, 255, 255, 0.98);
+    }
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     .content {
@@ -603,6 +617,40 @@ body {
     .education-title {
         font-size: 1.1rem;
     }
+
+    /* ===== FIX POUR LES JAUGES SUR MOBILE ===== */
+    .skills-with-bars {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 15px;
+    }
+
+    .circular-progress {
+        width: 70px;
+        height: 70px;
+    }
+
+    .circular-progress svg {
+        width: 70px;
+        height: 70px;
+    }
+
+    .progress-ring__circle,
+    .progress-ring__progress {
+        r: 30;
+        cx: 35;
+        cy: 35;
+        stroke-width: 5;
+        stroke-dasharray: 188;
+        stroke-dashoffset: 188;
+    }
+
+    .progress-text {
+        font-size: 0.8rem;
+    }
+
+    .skill-name {
+        font-size: 0.75rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -630,5 +678,39 @@ body {
 
     .profile-description p {
         font-size: 0.9rem;
+    }
+
+    /* ===== OPTIMISATION POUR TRÈS PETITS ÉCRANS ===== */
+    .skills-with-bars {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .circular-progress {
+        width: 60px;
+        height: 60px;
+    }
+
+    .circular-progress svg {
+        width: 60px;
+        height: 60px;
+    }
+
+    .progress-ring__circle,
+    .progress-ring__progress {
+        r: 25;
+        cx: 30;
+        cy: 30;
+        stroke-width: 4;
+        stroke-dasharray: 157;
+        stroke-dashoffset: 157;
+    }
+
+    .progress-text {
+        font-size: 0.7rem;
+    }
+
+    .skill-name {
+        font-size: 0.7rem;
     }
 }
