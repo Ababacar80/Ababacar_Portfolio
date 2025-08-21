@@ -28,6 +28,14 @@ body {
     margin-bottom: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(102, 126, 234, 0.1);
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: all 1s ease-out;
+}
+
+.header.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .profile-container {
@@ -155,48 +163,44 @@ body {
     line-height: 1.2;
 }
 
+/* ===== JAUGES CIRCULAIRES ===== */
 .circular-progress {
-  position: relative;
-  width: 120px;
-  height: 120px;
+    position: relative;
+    width: 120px;
+    height: 120px;
 }
 
 .circular-progress svg {
-  width: 120px;
-  height: 120px;
-  transform: rotate(-90deg);
+    width: 120px;
+    height: 120px;
+    transform: rotate(-90deg);
 }
 
 .progress-ring__bg {
-  fill: none;
-  stroke: #e6e6e6;
-  stroke-width: 10;
+    fill: none;
+    stroke: #e6e6e6;
+    stroke-width: 8;
 }
 
 .progress-ring__progress {
-  fill: none;
-  stroke: #667eea; /* couleur de la jauge */
-  stroke-width: 10;
-  stroke-linecap: round;
-  stroke-dasharray: 339.292; /* 2 * pi * r (r=54) */
-  stroke-dashoffset: 339.292; /* vide au départ */
-  transition: stroke-dashoffset 1.5s ease;
+    fill: none;
+    stroke: #667eea;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 0;
+    stroke-dashoffset: 0;
+    transition: stroke-dasharray 1.5s ease-out, stroke-dashoffset 1.5s ease-out;
 }
 
 .progress-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: bold;
-  font-size: 20px;
-}
-
-
-@keyframes drawProgress {
-    to {
-        stroke-dashoffset: var(--progress);
-    }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 18px;
+    color: #2c3e50;
+    z-index: 10;
 }
 
 /* ===== STAGGERED ANIMATIONS ===== */
@@ -605,34 +609,24 @@ body {
         font-size: 1.1rem;
     }
 
-    /* ===== FIX POUR LES JAUGES SUR MOBILE ===== */
+    /* ===== JAUGES RESPONSIVES ===== */
     .skills-with-bars {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         gap: 15px;
     }
 
     .circular-progress {
-        width: 70px;
-        height: 70px;
+        width: 90px;
+        height: 90px;
     }
 
     .circular-progress svg {
-        width: 70px;
-        height: 70px;
-    }
-
-    .progress-ring__circle,
-    .progress-ring__progress {
-        r: 30;
-        cx: 35;
-        cy: 35;
-        stroke-width: 5;
-        stroke-dasharray: 188;
-        stroke-dashoffset: 188;
+        width: 90px;
+        height: 90px;
     }
 
     .progress-text {
-        font-size: 0.8rem;
+        font-size: 14px;
     }
 
     .skill-name {
@@ -674,27 +668,17 @@ body {
     }
 
     .circular-progress {
-        width: 60px;
-        height: 60px;
+        width: 80px;
+        height: 80px;
     }
 
     .circular-progress svg {
-        width: 60px;
-        height: 60px;
-    }
-
-    .progress-ring__circle,
-    .progress-ring__progress {
-        r: 25;
-        cx: 30;
-        cy: 30;
-        stroke-width: 4;
-        stroke-dasharray: 157;
-        stroke-dashoffset: 157;
+        width: 80px;
+        height: 80px;
     }
 
     .progress-text {
-        font-size: 0.7rem;
+        font-size: 12px;
     }
 
     .skill-name {
@@ -702,40 +686,12 @@ body {
     }
 }
 
-.gauge {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: auto;
-}
-
-.circular-chart {
-  transform: rotate(-90deg);
-  width: 100%;
-  height: auto;
-}
-
-.bg {
-  fill: none;
-  stroke: #eee;
-  stroke-width: 10;
-}
-
-.progress {
-  fill: none;
-  stroke: #4caf50;
-  stroke-width: 10;
-  stroke-linecap: round;
-  stroke-dasharray: 339.292; /* 2πr = 2 * π * 54 */
-  stroke-dashoffset: 339.292;
-  transition: stroke-dashoffset 1s linear;
-}
-
-.gauge-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 20px;
-  font-weight: bold;
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

@@ -1,61 +1,57 @@
 // ===== FONCTIONS UTILITAIRES POUR LES JAUGES =====
-function calculateProgressValue(percentage, radius = 35) {
-    const circumference = 2 * Math.PI * radius;
-    const progress = circumference - (percentage / 100) * circumference;
-    return progress;
+function calculateCircumference(radius) {
+    return 2 * Math.PI * radius;
 }
 
-function getCurrentRadius() {
-    if (window.innerWidth <= 480) {
-        return 25; // Très petit écran
-    } else if (window.innerWidth <= 768) {
-        return 30; // Tablette/mobile
-    }
-    return 35; // Desktop
-}
-
-function getCurrentCenter(radius) {
-    return radius + 5; // Centrage dans le SVG
-}
-
-// ===== MISE À JOUR DES JAUGES SELON LA TAILLE D'ÉCRAN =====
-function updateProgressBars() {
-    const progressBars = document.querySelectorAll('.progress-ring__progress');
-    const radius = getCurrentRadius();
-    const center = getCurrentCenter(radius);
-    const circumference = 2 * Math.PI * radius;
+function animateCounter(element, targetValue, duration = 1500) {
+    let startValue = 0;
+    const startTime = performance.now();
     
-    progressBars.forEach((bar, index) => {
-        const skillItem = bar.closest('.skill-item');
-        const progressText = skillItem.querySelector('.progress-text');
-        const circle = skillItem.querySelector('.progress-ring__circle');
+    function updateCounter(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
         
-        if (!progressText) return;
+        // Fonction d'easing pour une animation plus fluide
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const currentValue = Math.round(startValue + (targetValue - startValue) * easeOutQuart);
         
-        const percentage = parseInt(progressText.textContent);
-        const progressValue = calculateProgressValue(percentage, radius);
+        element.textContent = currentValue + '%';
         
-        // Mettre à jour les propriétés CSS
-        bar.style.strokeDasharray = circumference;
-        bar.style.strokeDashoffset = circumference;
-        bar.style.setProperty('--progress', progressValue);
-        
-        // Mettre à jour les attributs des cercles
-        if (circle) {
-            circle.setAttribute('r', radius);
-            circle.setAttribute('cx', center);
-            circle.setAttribute('cy', center);
+        if (progress < 1) {
+            requestAnimationFrame(updateCounter);
         }
+    }
+    
+    requestAnimationFrame(updateCounter);
+}
+
+function animateProgressBar(progressBar, percentage, delay = 0) {
+    setTimeout(() => {
+        const radius = 50; // Rayon fixe
+        const circumference = calculateCircumference(radius);
+        const offset = circumference - (percentage / 100) * circumference;
         
-        bar.setAttribute('r', radius);
-        bar.setAttribute('cx', center);
-        bar.setAttribute('cy', center);
-    });
+        // Configuration initiale
+        progressBar.style.strokeDasharray = circumference;
+        progressBar.style.strokeDashoffset = circumference;
+        
+        // Animation du cercle de progression
+        requestAnimationFrame(() => {
+            progressBar.style.strokeDashoffset = offset;
+        });
+        
+        // Animation du texte de pourcentage
+        const skillItem = progressBar.closest('.skill-item');
+        const progressText = skillItem.querySelector('.progress-text');
+        if (progressText) {
+            animateCounter(progressText, percentage, 1500);
+        }
+    }, delay);
 }
 
 // ===== INTERSECTION OBSERVER POUR ANIMATIONS =====
 const observerOptions = {
-    threshold: 0.1,
+    threshold: 0.3,
     rootMargin: '0px 0px -50px 0px'
 };
 
@@ -73,11 +69,10 @@ const observer = new IntersectionObserver((entries) => {
                         
                         // Animer la jauge après que l'élément soit visible
                         const progressBar = item.querySelector('.progress-ring__progress');
-                        if (progressBar) {
-                            // Délai pour l'animation de la jauge
-                            setTimeout(() => {
-                                progressBar.classList.add('animate');
-                            }, 300);
+                        const percentage = parseInt(item.dataset.progress);
+                        
+                        if (progressBar && percentage) {
+                            animateProgressBar(progressBar, percentage, 300);
                         }
                     }, index * 150);
                 });
@@ -89,7 +84,7 @@ const observer = new IntersectionObserver((entries) => {
                 projectCards.forEach((card, index) => {
                     setTimeout(() => {
                         card.classList.add('visible');
-                    }, index * 150);
+                    }, index * 100);
                 });
             }
 
@@ -106,68 +101,27 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// ===== OBSERVER SPÉCIFIQUE POUR LES JAUGES =====
-const progressObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const progressBar = entry.target;
-            const skillItem = progressBar.closest('.skill-item');
-            
-            // Vérifier si l'élément parent est visible
-            if (skillItem && skillItem.classList.contains('visible')) {
-                setTimeout(() => {
-                    progressBar.classList.add('animate');
-                }, 200);
-            } else {
-                // Réessayer après un délai si le parent n'est pas encore visible
-                setTimeout(() => {
-                    if (skillItem && skillItem.classList.contains('visible')) {
-                        progressBar.classList.add('animate');
-                    }
-                }, 500);
-            }
-        }
-    });
-}, { 
-    threshold: 0.5,
-    rootMargin: '0px 0px -50px 0px'
-});
-
-// ===== FONCTION D'INITIALISATION =====
-function initializeProgressBars() {
-    // S'assurer que les jauges ont les bonnes dimensions
-    updateProgressBars();
-    
-    // Observer toutes les jauges
-    const progressBars = document.querySelectorAll('.progress-ring__progress');
-    progressBars.forEach(bar => {
-        progressObserver.observe(bar);
-    });
-}
-
 // ===== GESTIONNAIRE DE REDIMENSIONNEMENT =====
 let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-        updateProgressBars();
-        
-        // Réinitialiser les animations si nécessaire
-        const visibleProgressBars = document.querySelectorAll('.progress-ring__progress.animate');
-        visibleProgressBars.forEach(bar => {
-            bar.classList.remove('animate');
-            setTimeout(() => {
-                bar.classList.add('animate');
-            }, 100);
+        // Réinitialiser les jauges si elles sont déjà animées
+        const animatedSkillItems = document.querySelectorAll('.skill-item.visible');
+        animatedSkillItems.forEach(item => {
+            const progressBar = item.querySelector('.progress-ring__progress');
+            const percentage = parseInt(item.dataset.progress);
+            
+            if (progressBar && percentage) {
+                // Réappliquer l'animation immédiatement
+                animateProgressBar(progressBar, percentage, 0);
+            }
         });
     }, 250);
 });
 
 // ===== DOM CONTENT LOADED =====
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialiser les jauges
-    initializeProgressBars();
-    
     // Observer les éléments avec animations
     const animatedElements = document.querySelectorAll(
         '.fade-in, .slide-in-left, .slide-in-right, .scale-in, .skills-with-bars, .projects-section, .education-section'
@@ -178,19 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         const header = document.querySelector('.header');
         if (header) {
-            header.style.opacity = '1';
-            header.style.transform = 'translateY(0)';
+            header.classList.add('visible');
         }
     }, 200);
 });
-
-// ===== STYLES INITIAUX POUR LE HEADER =====
-const header = document.querySelector('.header');
-if (header) {
-    header.style.opacity = '0';
-    header.style.transform = 'translateY(-30px)';
-    header.style.transition = 'all 1s ease-out';
-}
 
 // ===== SMOOTH SCROLLING POUR LES LIENS D'ANCRAGE =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -317,8 +262,19 @@ if ('IntersectionObserver' in window) {
     console.log('Intersection Observer non supporté - styles de fallback appliqués');
     // Appliquer immédiatement la classe visible à tous les éléments
     document.addEventListener('DOMContentLoaded', () => {
-        const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
+        const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in, .skill-item');
         animatedElements.forEach(el => el.classList.add('visible'));
+        
+        // Animer toutes les jauges immédiatement
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach(item => {
+            const progressBar = item.querySelector('.progress-ring__progress');
+            const percentage = parseInt(item.dataset.progress);
+            
+            if (progressBar && percentage) {
+                animateProgressBar(progressBar, percentage, 0);
+            }
+        });
     });
 }
 
@@ -327,18 +283,15 @@ if (!CSS.supports('color', 'var(--fake-var)')) {
     console.log('CSS Custom Properties non supportées, utilisation de valeurs fixes');
     
     document.addEventListener('DOMContentLoaded', () => {
-        const progressBars = document.querySelectorAll('.progress-ring__progress');
-        progressBars.forEach(bar => {
-            const skillItem = bar.closest('.skill-item');
-            const progressText = skillItem.querySelector('.progress-text');
-            if (progressText) {
-                const percentage = parseInt(progressText.textContent);
-                const radius = getCurrentRadius();
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach(item => {
+            const progressBar = item.querySelector('.progress-ring__progress');
+            const percentage = parseInt(item.dataset.progress);
+            
+            if (progressBar && percentage) {
+                const radius = 50;
                 const circumference = 2 * Math.PI * radius;
                 const offset = circumference - (percentage / 100) * circumference;
-                
-                // Appliquer directement la valeur sans CSS custom property
-                bar.style.strokeDashoffset = offset + 'px';
                 
                 // Observer pour déclencher l'animation
                 const fallbackObserver = new IntersectionObserver((entries) => {
@@ -351,7 +304,7 @@ if (!CSS.supports('color', 'var(--fake-var)')) {
                     });
                 }, { threshold: 0.5 });
                 
-                fallbackObserver.observe(bar);
+                fallbackObserver.observe(item);
             }
         });
     });
@@ -467,19 +420,22 @@ if (window.location.search.includes('debug=true')) {
     // Vérifier les jauges en mode debug
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
-            const progressBars = document.querySelectorAll('.progress-ring__progress');
-            console.log('Jauges trouvées:', progressBars.length);
+            const skillItems = document.querySelectorAll('.skill-item');
+            console.log('Jauges trouvées:', skillItems.length);
             
-            progressBars.forEach((bar, index) => {
-                const rect = bar.getBoundingClientRect();
-                const computedStyle = getComputedStyle(bar);
+            skillItems.forEach((item, index) => {
+                const progressBar = item.querySelector('.progress-ring__progress');
+                const percentage = parseInt(item.dataset.progress);
                 
                 console.log(`Jauge ${index + 1}:`, {
-                    visible: rect.width > 0 && rect.height > 0,
-                    strokeDasharray: computedStyle.strokeDasharray,
-                    strokeDashoffset: computedStyle.strokeDashoffset,
-                    hasAnimateClass: bar.classList.contains('animate'),
-                    customProperty: bar.style.getPropertyValue('--progress')
+                    visible: item.offsetWidth > 0 && item.offsetHeight > 0,
+                    percentage: percentage,
+                    hasProgressBar: !!progressBar,
+                    hasVisibleClass: item.classList.contains('visible'),
+                    progressBarStyles: progressBar ? {
+                        strokeDasharray: progressBar.style.strokeDasharray,
+                        strokeDashoffset: progressBar.style.strokeDashoffset
+                    } : null
                 });
             });
         }, 2000);
@@ -514,69 +470,61 @@ document.addEventListener('DOMContentLoaded', () => {
     preloadCriticalResources();
     
     // Log de succès de chargement
-    console.log('Portfolio chargé avec succès');
+    console.log('Portfolio chargé avec succès - Jauges optimisées pour mobile et desktop');
     trackEvent('portfolio_loaded', {
         timestamp: Date.now()
     });
 });
 
-function setGauge(value) {
-  const circle = document.querySelector('.progress');
-  const text = document.getElementById('gauge-value');
-
-  const radius = circle.r.baseVal.value;
-  const circumference = 2 * Math.PI * radius;
-
-  circle.style.strokeDasharray = circumference;
-  circle.style.strokeDashoffset = circumference;
-
-  const offset = circumference - (value / 100) * circumference;
-  circle.style.strokeDashoffset = offset;
-
-  text.textContent = value + "%";
-}
-
-// Exemple : anime la jauge à 75%
-setGauge(75);
-
-
-function animateSkills(entries, observer) {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      let circular = entry.target;
-      let percent = parseInt(circular.getAttribute("data-progress"));
-      let circle = circular.querySelector(".progress-ring__progress");
-      let text = circular.querySelector(".progress-text");
-
-      let radius = 54;
-      let circumference = 2 * Math.PI * radius;
-      circle.style.strokeDasharray = circumference;
-      circle.style.strokeDashoffset = circumference;
-
-      // animation du cercle
-      setTimeout(() => {
-        let offset = circumference - (percent / 100) * circumference;
-        circle.style.strokeDashoffset = offset;
-      }, 100);
-
-      // animation du texte %
-      let count = 0;
-      let interval = setInterval(() => {
-        if (count <= percent) {
-          text.textContent = count + "%";
-          count++;
-        } else {
-          clearInterval(interval);
+// ===== FONCTION SPÉCIFIQUE POUR TESTER LES JAUGES =====
+function testGauges() {
+    console.log('Test des jauges...');
+    const skillItems = document.querySelectorAll('.skill-item');
+    
+    skillItems.forEach((item, index) => {
+        const percentage = parseInt(item.dataset.progress);
+        const progressBar = item.querySelector('.progress-ring__progress');
+        const progressText = item.querySelector('.progress-text');
+        
+        console.log(`Test jauge ${index + 1}:`, {
+            percentage,
+            hasProgressBar: !!progressBar,
+            hasProgressText: !!progressText,
+            currentText: progressText?.textContent,
+            isVisible: item.classList.contains('visible')
+        });
+        
+        if (progressBar && percentage) {
+            // Force l'animation pour tester
+            setTimeout(() => {
+                animateProgressBar(progressBar, percentage, 0);
+            }, index * 200);
         }
-      }, 15);
-
-      observer.unobserve(circular); // n’anime qu’une fois
-    }
-  });
+    });
 }
 
-let skillobserver = new IntersectionObserver(animateSkills, {
-  threshold: 0.5
-});
+// Exposer la fonction de test dans la console
+window.testGauges = testGauges;
 
-document.querySelectorAll(".circular-progress").forEach(el => observer.observe(el));
+// ===== FALLBACK SI INTERSECTION OBSERVER N'EST PAS SUPPORTÉ =====
+if (!('IntersectionObserver' in window)) {
+    // Fallback pour les navigateurs anciens
+    document.addEventListener('DOMContentLoaded', () => {
+        // Afficher tous les éléments immédiatement
+        const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in, .skill-item');
+        animatedElements.forEach(el => el.classList.add('visible'));
+        
+        // Animer toutes les jauges
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach((item, index) => {
+            const progressBar = item.querySelector('.progress-ring__progress');
+            const percentage = parseInt(item.dataset.progress);
+            
+            if (progressBar && percentage) {
+                setTimeout(() => {
+                    animateProgressBar(progressBar, percentage, 0);
+                }, index * 200);
+            }
+        });
+    });
+}
