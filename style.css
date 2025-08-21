@@ -327,6 +327,15 @@ body {
     padding: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(102, 126, 234, 0.1);
+    /* AJOUT : États initiaux pour l'animation */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.projects-section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .projects-section h2 {
@@ -343,9 +352,10 @@ body {
     padding: 25px;
     margin-bottom: 20px;
     border-left: 5px solid #667eea;
-    transition: all 0.3s ease;
+    /* CORRECTION : États initiaux pour l'animation */
     opacity: 0;
     transform: translateY(30px);
+    transition: all 0.6s ease-out;
 }
 
 .project-card.visible {
@@ -406,11 +416,53 @@ body {
     gap: 10px;
 }
 
+/* AJOUT : Délais d'animation échelonnés pour les projets */
 .project-card:nth-child(1).visible { transition-delay: 0.1s; }
 .project-card:nth-child(2).visible { transition-delay: 0.2s; }
 .project-card:nth-child(3).visible { transition-delay: 0.3s; }
 .project-card:nth-child(4).visible { transition-delay: 0.4s; }
 .project-card:nth-child(5).visible { transition-delay: 0.5s; }
+.project-card:nth-child(6).visible { transition-delay: 0.6s; }
+.project-card:nth-child(7).visible { transition-delay: 0.7s; }
+.project-card:nth-child(8).visible { transition-delay: 0.8s; }
+
+/* AJOUT : Debug styles pour identifier les problèmes */
+.projects-section[data-debug="true"] {
+    border: 3px solid red !important;
+    background: rgba(255, 0, 0, 0.1) !important;
+}
+
+.project-card[data-debug="true"] {
+    border: 2px solid blue !important;
+    background: rgba(0, 0, 255, 0.1) !important;
+}
+
+/* CORRECTION : S'assurer que les éléments sont visibles par défaut en cas de problème JS */
+.no-js .projects-section,
+.no-js .project-card {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* AJOUT : Animation de fallback si IntersectionObserver ne fonctionne pas */
+.fallback-animation .projects-section {
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+.fallback-animation .project-card {
+    animation: slideInUp 0.6s ease-out forwards;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* ===== BUTTONS ===== */
 .btn {

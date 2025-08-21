@@ -51,8 +51,8 @@ function animateProgressBar(progressBar, percentage, delay = 0) {
 
 // ===== INTERSECTION OBSERVER POUR ANIMATIONS =====
 const observerOptions = {
-    threshold: 0.3,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.1, // threshold plus bas pour déclencher plus tôt
+    rootMargin: '0px 0px -20px 0px' // marge plus petite
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -78,13 +78,17 @@ const observer = new IntersectionObserver((entries) => {
                 });
             }
             
-            // Gestion des projets
+            // Gestion améliorée des projets
             if (entry.target.classList.contains('projects-section')) {
+                console.log('Section projets détectée et visible');
                 const projectCards = entry.target.querySelectorAll('.project-card');
+                console.log('Nombre de cartes projet trouvées:', projectCards.length);
+                
                 projectCards.forEach((card, index) => {
                     setTimeout(() => {
                         card.classList.add('visible');
-                    }, index * 100);
+                        console.log(`Carte projet ${index + 1} animée`);
+                    }, index * 150);
                 });
             }
 
@@ -126,7 +130,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const animatedElements = document.querySelectorAll(
         '.fade-in, .slide-in-left, .slide-in-right, .scale-in, .skills-with-bars, .projects-section, .education-section'
     );
-    animatedElements.forEach(el => observer.observe(el));
+    
+    console.log('Éléments à observer:', animatedElements.length);
+    
+    animatedElements.forEach((el, index) => {
+        console.log(`Observing element ${index + 1}:`, el.className);
+        observer.observe(el);
+    });
 
     // Animation d'entrée du header
     setTimeout(() => {
@@ -135,7 +145,90 @@ document.addEventListener('DOMContentLoaded', () => {
             header.classList.add('visible');
         }
     }, 200);
+    
+    // Debug pour vérifier les éléments projets
+    const projectsSection = document.querySelector('.projects-section');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    console.log('=== DIAGNOSTIC PROJETS ===');
+    console.log('Section projets trouvée:', !!projectsSection);
+    console.log('Nombre de cartes projet:', projectCards.length);
+    
+    if (projectsSection) {
+        console.log('Classes de la section projets:', projectsSection.className);
+        console.log('Style opacity initial:', getComputedStyle(projectsSection).opacity);
+    }
+    
+    // Fallback si l'intersection observer ne fonctionne pas après 3 secondes
+    setTimeout(() => {
+        if (projectsSection && !projectsSection.classList.contains('visible')) {
+            console.log('Fallback activé : forçage de l\'affichage des projets');
+            projectsSection.classList.add('visible');
+            projectCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 100);
+            });
+        }
+    }, 3000);
 });
+
+// ===== FONCTION DE DEBUG POUR LES PROJETS =====
+function debugProjects() {
+    const projectsSection = document.querySelector('.projects-section');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    console.log('=== DEBUG PROJETS DÉTAILLÉ ===');
+    console.log('Section projets trouvée:', !!projectsSection);
+    console.log('Nombre de cartes projet:', projectCards.length);
+    
+    if (projectsSection) {
+        console.log('Section projets visible:', projectsSection.classList.contains('visible'));
+        console.log('Style opacity:', getComputedStyle(projectsSection).opacity);
+        console.log('Style transform:', getComputedStyle(projectsSection).transform);
+        console.log('Classes de la section:', projectsSection.className);
+    }
+    
+    projectCards.forEach((card, index) => {
+        console.log(`Carte ${index + 1}:`, {
+            visible: card.classList.contains('visible'),
+            opacity: getComputedStyle(card).opacity,
+            transform: getComputedStyle(card).transform,
+            classes: card.className
+        });
+    });
+    
+    // Forcer l'affichage pour test
+    console.log('Forçage de l\'affichage...');
+    if (projectsSection) {
+        projectsSection.classList.add('visible');
+        projectCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('visible');
+                console.log(`Carte ${index + 1} forcée visible`);
+            }, index * 100);
+        });
+        console.log('Animation forcée appliquée');
+    }
+}
+
+// ===== FONCTION DE TEST POUR TOUS LES ÉLÉMENTS =====
+function testAllAnimations() {
+    console.log('=== TEST DE TOUTES LES ANIMATIONS ===');
+    
+    // Forcer toutes les animations
+    const allAnimatedElements = document.querySelectorAll('.fade-in, .projects-section, .education-section, .skills-section');
+    allAnimatedElements.forEach(el => el.classList.add('visible'));
+    
+    const allCards = document.querySelectorAll('.project-card, .education-item, .skill-item');
+    allCards.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.add('visible');
+        }, index * 50);
+    });
+    
+    console.log('Toutes les animations forcées');
+}
 
 // ===== SMOOTH SCROLLING POUR LES LIENS D'ANCRAGE =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -503,9 +596,6 @@ function testGauges() {
     });
 }
 
-// Exposer la fonction de test dans la console
-window.testGauges = testGauges;
-
 // ===== FALLBACK SI INTERSECTION OBSERVER N'EST PAS SUPPORTÉ =====
 if (!('IntersectionObserver' in window)) {
     // Fallback pour les navigateurs anciens
@@ -528,3 +618,8 @@ if (!('IntersectionObserver' in window)) {
         });
     });
 }
+
+// Exposer les fonctions de debug dans la console
+window.debugProjects = debugProjects;
+window.testAllAnimations = testAllAnimations;
+window.testGauges = testGauges;
