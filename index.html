@@ -13,7 +13,8 @@
     <span class="nav-logo">AS.</span>
     <ul class="nav-links">
         <li><a href="#skills">Compétences</a></li>
-        <li><a href="#projects">Projets</a></li>
+        <li><a href="#projects">ML / IA</a></li>
+        <li><a href="#webprojects">Web</a></li>
         <li><a href="#education">Formation</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
@@ -114,13 +115,23 @@
             </div>
         </div>
         <div class="skill-card reveal">
+            <div class="skill-card-icon">⚙️</div>
+            <div class="skill-card-title">Data Engineering & ETL</div>
+            <div class="skill-tags">
+                <span class="skill-tag">Pipeline ETL</span><span class="skill-tag">Parsing PDF</span>
+                <span class="skill-tag">JSON</span><span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">FastAPI</span><span class="skill-tag">JWT</span>
+                <span class="skill-tag">OpenAI API</span><span class="skill-tag">Traduction Auto</span>
+            </div>
+        </div>
+        <div class="skill-card reveal">
             <div class="skill-card-icon">☁️</div>
             <div class="skill-card-title">Cloud & DevOps</div>
             <div class="skill-tags">
                 <span class="skill-tag">AWS</span><span class="skill-tag">Docker</span>
-                <span class="skill-tag">FastAPI</span><span class="skill-tag">Streamlit</span>
-                <span class="skill-tag">GitHub</span><span class="skill-tag">Coolify</span>
-                <span class="skill-tag">Linux</span>
+                <span class="skill-tag">Streamlit</span><span class="skill-tag">GitHub</span>
+                <span class="skill-tag">Coolify</span><span class="skill-tag">Linux</span>
+                <span class="skill-tag">Next.js</span><span class="skill-tag">TypeScript</span>
             </div>
         </div>
     </div>
@@ -143,7 +154,7 @@
                 <span class="project-year">2025 · Live</span>
             </div>
             <div class="impact-badge">⭐ Projet phare</div>
-            <h3 class="project-title">AWA — Assistante Vocale Médicale IA</h3>
+            <h3 class="project-title">AWA — Assistante Médicale IA</h3>
             <p class="project-desc">Application mobile-first d'assistance médicale intelligente, adaptée au contexte sénégalais. Les utilisateurs décrivent leurs symptômes, et AWA analyse, diagnostique et fournit des recommandations personnalisées avec synthèse vocale.</p>
             <div class="project-details">
                 <div class="project-details-title">Détails techniques</div>
@@ -373,6 +384,150 @@
     </div>
 </section>
 
+<!-- ===== WEB PROJECTS ===== -->
+<section id="webprojects">
+    <div class="section-header reveal">
+        <div class="section-tag">Développement Web</div>
+        <h2 class="section-title">Sites & Apps <span>Clients</span></h2>
+        <p class="section-sub">Applications web full-stack conçues, développées et déployées pour des clients réels — de la maquette à la mise en production.</p>
+    </div>
+
+    <div class="projects-grid">
+
+        <!-- YOONUDAWAL — HERO PROJECT -->
+        <div class="project-card featured reveal" style="border-color: rgba(123,97,255,0.3); background: linear-gradient(135deg, rgba(123,97,255,0.07), rgba(0,240,255,0.04));">
+            <div class="project-top">
+                <div class="project-emoji">🎓</div>
+                <span class="project-year">2025 · Live</span>
+            </div>
+            <div class="impact-badge" style="background:rgba(123,97,255,0.15); border-color:rgba(123,97,255,0.3); color:#a78bfa;">⚡ Projet phare Web — ETL · 6900+ questions · 3 langues · Full-stack</div>
+            <h3 class="project-title">Yoonudawal — Plateforme E-Learning Multilingue</h3>
+            <p class="project-desc">
+                Plateforme e-learning full-stack avec pipeline ETL complet : ingestion de 6900+ questions depuis des PDFs bruts, transformation en JSON structuré, traduction automatique en 3 langues (Informatique / Français / Wolof) et stockage MongoDB. Backend FastAPI sécurisé JWT + dashboard admin Next.js 15, le tout déployé en production.
+            </p>
+            <div class="projects-detail-grid">
+                <div class="project-details">
+                    <div class="project-details-title">Pipeline ETL</div>
+                    <ul>
+                        <li>Parsing PDF → extraction structurée en JSON</li>
+                        <li>Traduction automatique via OpenAI API (IT / FR / WO)</li>
+                        <li>6900+ questions nettoyées et indexées en MongoDB</li>
+                    </ul>
+                </div>
+                <div class="project-details">
+                    <div class="project-details-title">Application</div>
+                    <ul>
+                        <li>Backend FastAPI + authentification JWT</li>
+                        <li>Dashboard admin Next.js 15 — gestion du contenu</li>
+                        <li>Déployé sur yoonudawal.com via Docker + Coolify</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">Python</span><span class="tech-badge">FastAPI</span>
+                <span class="tech-badge">MongoDB</span><span class="tech-badge">OpenAI API</span>
+                <span class="tech-badge">Next.js 15</span><span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Docker</span><span class="tech-badge">JWT</span>
+                <span class="tech-badge">ETL</span>
+            </div>
+            <div class="project-links">
+                <a href="https://yoonudawal.com" target="_blank" class="link-demo">🌐 Voir le site</a>
+            </div>
+        </div>
+
+        <!-- THE DOOF -->
+        <div class="project-card featured reveal">
+            <div class="project-top">
+                <div class="project-emoji">👕</div>
+                <span class="project-year">2025 · Live</span>
+            </div>
+            <div class="impact-badge">🚀 Full-stack — Front-end + DevOps</div>
+            <h3 class="project-title">THE DOOF — Boutique Streetwear Dakar</h3>
+            <p class="project-desc">
+                E-commerce complet pour une marque de streetwear dakaroise. Catalogue produits dynamique, commandes via WhatsApp, SEO local Sénégal, déployé en production sur VPS avec Docker.
+            </p>
+            <div class="project-details">
+                <div class="project-details-title">Stack & Architecture</div>
+                <ul>
+                    <li>Frontend Next.js 16 + TypeScript + Tailwind CSS + Framer Motion</li>
+                    <li>Containerisé avec Docker — déploiement Coolify sur VPS</li>
+                    <li>SEO avancé : Schema.org, Open Graph, sitemap dynamique, hreflang</li>
+                    <li>Galerie photos, catalogue filtrable, intégration WhatsApp checkout</li>
+                </ul>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">Next.js</span><span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Tailwind</span><span class="tech-badge">Framer Motion</span>
+                <span class="tech-badge">Docker</span><span class="tech-badge">Coolify</span>
+            </div>
+            <div class="project-links">
+                <a href="https://thedoofdakar.com" target="_blank" class="link-demo">🌐 Voir le site</a>
+            </div>
+        </div>
+
+        <!-- CHAMROCK DÉCO -->
+        <div class="project-card reveal">
+            <div class="project-top">
+                <div class="project-emoji">🛋️</div>
+                <span class="project-year">2025 · Live</span>
+            </div>
+            <h3 class="project-title">Chamrock Déco — Décoration Intérieur</h3>
+            <p class="project-desc">
+                Site vitrine premium pour une décoratrice d'intérieur dakaroise. Animations 3D, galerie de réalisations, formulaire de contact et SEO local Dakar.
+            </p>
+            <div class="project-details">
+                <div class="project-details-title">Stack & Fonctionnalités</div>
+                <ul>
+                    <li>Next.js + TypeScript + Three.js pour les animations 3D</li>
+                    <li>Framer Motion — transitions et micro-animations premium</li>
+                    <li>Galerie lightbox des réalisations (instituts, maisons, commerces)</li>
+                    <li>SEO local optimisé : Dakar, Sénégal, décoration intérieur</li>
+                </ul>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">Next.js</span><span class="tech-badge">Three.js</span>
+                <span class="tech-badge">Framer Motion</span><span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Tailwind</span>
+            </div>
+            <div class="project-links">
+                <a href="https://chamrockdeco.com" target="_blank" class="link-demo">🌐 Voir le site</a>
+            </div>
+        </div>
+
+        <!-- FALL TIME -->
+        <div class="project-card reveal">
+            <div class="project-top">
+                <div class="project-emoji">⌚</div>
+                <span class="project-year">2025 · Live</span>
+            </div>
+            <h3 class="project-title">Fall Time — Boutique Montres de Luxe</h3>
+            <p class="project-desc">
+                Boutique e-commerce spécialisée montres de luxe et sportives à Dakar. Catalogue multi-marques (Rolex, Patek Philippe, Hublot, Casio), filtres par catégorie, livraison Sénégal.
+            </p>
+            <div class="project-details">
+                <div class="project-details-title">Stack & Fonctionnalités</div>
+                <ul>
+                    <li>Next.js + TypeScript — catalogue produits avec filtres dynamiques</li>
+                    <li>Fiches produits détaillées : images multiples, caractéristiques, prix</li>
+                    <li>Checkout WhatsApp — commande simplifiée sans paiement en ligne</li>
+                    <li>Schema.org Product pour référencement Google Shopping</li>
+                </ul>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">Next.js</span><span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Tailwind</span><span class="tech-badge">Schema.org</span>
+                <span class="tech-badge">E-commerce</span>
+            </div>
+            <div class="project-links">
+                <a href="https://falloutime.com" target="_blank" class="link-demo">🌐 Voir le site</a>
+            </div>
+        </div>
+
+
+
+    </div>
+</section>
+
 <!-- ===== EDUCATION ===== -->
 <section id="education">
     <div class="section-header reveal">
@@ -450,7 +605,20 @@
                 <div class="contact-val">linkedin.com/in/ababacar80</div>
             </div>
         </a>
-
+        <a href="https://github.com/ababacar80" target="_blank" class="contact-card">
+            <span class="contact-icon">🐙</span>
+            <div>
+                <div class="contact-label">GitHub</div>
+                <div class="contact-val">github.com/ababacar80</div>
+            </div>
+        </a>
+        <a href="https://ababacar80.github.io/" target="_blank" class="contact-card">
+            <span class="contact-icon">🌐</span>
+            <div>
+                <div class="contact-label">Portfolio</div>
+                <div class="contact-val">ababacar80.github.io</div>
+            </div>
+        </a>
     </div>
 </section>
 
