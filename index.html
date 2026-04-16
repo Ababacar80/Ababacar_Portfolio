@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ababacar Sagna — Data Scientist & AI Engineer</title>
+    <title>Ababacar Sagna — Data Scientist · IA Générative & NLP</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,7 +18,6 @@
         <li><a href="#education">Formation</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="https://ababacar80.github.io/" class="btn-primary btn-nav" target="_blank">Portfolio</a>
 </nav>
 
 <!-- ===== HERO ===== -->
@@ -26,7 +25,7 @@
     <div class="hero-text">
         <div class="hero-badge">Disponible pour stage &amp; mission</div>
         <h1 class="hero-name">Ababacar<br>Sagna</h1>
-        <p class="hero-role">Data Scientist &amp; AI Engineer</p>
+        <p class="hero-role">Data Scientist · IA Générative &amp; NLP</p>
         <p class="hero-desc">
             Je transforme la donnée en <span>décisions intelligentes</span>.
             Passionné par le Machine Learning, les LLMs et l'IA appliquée,
@@ -96,11 +95,11 @@
         </div>
         <div class="skill-card reveal">
             <div class="skill-card-icon">💬</div>
-            <div class="skill-card-title">NLP & LLMs</div>
+            <div class="skill-card-title">IA Générative & LLMs</div>
             <div class="skill-tags">
-                <span class="skill-tag">BERT</span><span class="skill-tag">GPT-4</span>
-                <span class="skill-tag">Rasa</span><span class="skill-tag">RAG</span>
-                <span class="skill-tag">LangChain</span><span class="skill-tag">OpenAI API</span>
+                <span class="skill-tag">Claude API</span><span class="skill-tag">OpenAI API</span>
+                <span class="skill-tag">NLP</span><span class="skill-tag">Agents IA</span>
+                <span class="skill-tag">RAG</span><span class="skill-tag">Rasa</span>
                 <span class="skill-tag">gTTS</span>
             </div>
         </div>
@@ -154,22 +153,23 @@
                 <span class="project-year">2025 · Live</span>
             </div>
             <div class="impact-badge">⭐ Projet phare</div>
-            <h3 class="project-title">AWA — Assistante Médicale IA</h3>
-            <p class="project-desc">Application mobile-first d'assistance médicale intelligente, adaptée au contexte sénégalais. Les utilisateurs décrivent leurs symptômes, et AWA analyse, diagnostique et fournit des recommandations personnalisées avec synthèse vocale.</p>
+            <h3 class="project-title">Badiene AWA — Assistante Médicale IA</h3>
+            <p class="project-desc">Chatbot médical avec diagnostic hiérarchique via LLM, synthèse vocale et recommandations personnalisées. Pipeline NLP structuré pour triage de symptômes, adapté au contexte sénégalais.</p>
             <div class="project-details">
                 <div class="project-details-title">Détails techniques</div>
                 <ul>
-                    <li>Architecture FastAPI (backend) + JavaScript responsive (frontend mobile-first)</li>
-                    <li>Intégration GPT-4 pour l'analyse des symptômes et recommandations</li>
+                    <li>Pipeline NLP structuré pour analyse et triage des symptômes</li>
+                    <li>Diagnostic hiérarchique via LLM avec recommandations personnalisées</li>
                     <li>Synthèse vocale gTTS pour l'accessibilité aux non-lecteurs</li>
-                    <li>Déployé avec Docker sur VPS — awa.thedoofdakar.com</li>
+                    <li>Backend FastAPI + frontend Next.js — déployé sur VPS Docker</li>
                     <li>Interface adaptée aux réalités locales sénégalaises</li>
                 </ul>
             </div>
             <div class="project-tech">
-                <span class="tech-badge">FastAPI</span><span class="tech-badge">GPT-4</span>
-                <span class="tech-badge">Docker</span><span class="tech-badge">JavaScript</span>
-                <span class="tech-badge">gTTS</span><span class="tech-badge">Python</span>
+                <span class="tech-badge">Python</span><span class="tech-badge">NLP</span>
+                <span class="tech-badge">LLM</span><span class="tech-badge">FastAPI</span>
+                <span class="tech-badge">MongoDB</span><span class="tech-badge">Next.js</span>
+                <span class="tech-badge">gTTS</span>
             </div>
             <div class="project-links">
                 <a href="https://github.com/ababacar80/Agribot_NLP" target="_blank" class="link-github">💻 GitHub</a>
@@ -195,8 +195,7 @@
             </div>
             <div class="project-tech">
                 <span class="tech-badge">Python</span><span class="tech-badge">Streamlit</span>
-                <span class="tech-badge">Scikit-learn</span><span class="tech-badge">Random Forest</span>
-                <span class="tech-badge">SMOTE</span>
+                <span class="tech-badge">XGBoost</span><span class="tech-badge">Random Forest</span>
             </div>
             <div class="project-links">
                 <a href="https://github.com/ababacar80/detection-fraude-bancaire" target="_blank" class="link-github">💻 GitHub</a>
@@ -354,6 +353,72 @@
             </div>
         </div>
 
+        <!-- Content Studios IA -->
+        <div class="project-card reveal">
+            <div class="project-top">
+                <div class="project-emoji">🤖</div>
+                <span class="project-year">2025</span>
+            </div>
+            <h3 class="project-title">Content Studios IA — Génération Automatique</h3>
+            <p class="project-desc">Génération automatique de captions Instagram / TikTok / X via Claude API pour deux marques (FallTime, The Doof). Validation automatique, retry et déploiement serverless.</p>
+            <div class="project-details">
+                <div class="project-details-title">Architecture</div>
+                <ul>
+                    <li>Intégration Claude API (Anthropic) pour génération de contenu</li>
+                    <li>Validation automatique des outputs + logique de retry</li>
+                    <li>Déployé sur Vercel Serverless — zéro infrastructure à gérer</li>
+                </ul>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">Python</span><span class="tech-badge">Claude API</span>
+                <span class="tech-badge">Anthropic</span><span class="tech-badge">Vercel Serverless</span>
+            </div>
+        </div>
+
+        <!-- TailleurPro -->
+        <div class="project-card reveal">
+            <div class="project-top">
+                <div class="project-emoji">✂️</div>
+                <span class="project-year">2024</span>
+            </div>
+            <h3 class="project-title">TailleurPro — Logiciel de Gestion Tailleur</h3>
+            <p class="project-desc">Application desktop Python livrée à un client : gestion clients, mesures corporelles (13 points), commandes, backup automatique et système de licence.</p>
+            <div class="project-details">
+                <div class="project-details-title">Fonctionnalités</div>
+                <ul>
+                    <li>Interface CustomTkinter — 13 points de mesures corporelles</li>
+                    <li>Gestion commandes avec avance / reste à payer</li>
+                    <li>Backup automatique + système de licence client</li>
+                </ul>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">Python</span><span class="tech-badge">CustomTkinter</span>
+                <span class="tech-badge">SQLite</span>
+            </div>
+        </div>
+
+        <!-- The Doof Gestion -->
+        <div class="project-card reveal">
+            <div class="project-top">
+                <div class="project-emoji">📊</div>
+                <span class="project-year">2025</span>
+            </div>
+            <h3 class="project-title">The Doof Gestion — Dashboard Financier</h3>
+            <p class="project-desc">Outil interne multi-associés (4 users) : suivi des commandes, ventes, publicités, collectes et calcul de profit en temps réel. Déployé sur Vercel.</p>
+            <div class="project-details">
+                <div class="project-details-title">Architecture</div>
+                <ul>
+                    <li>Backend Python serverless Vercel — API sans serveur dédié</li>
+                    <li>MongoDB pour la persistance des données financières</li>
+                    <li>Dashboard HTML/JS multi-associés avec calcul de profit</li>
+                </ul>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">Python</span><span class="tech-badge">Vercel Serverless</span>
+                <span class="tech-badge">MongoDB</span><span class="tech-badge">HTML/JS</span>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -496,7 +561,59 @@
             </div>
         </div>
 
+        <!-- SIDY CSB APPLE -->
+        <div class="project-card reveal">
+            <div class="project-top">
+                <div class="project-emoji">📱</div>
+                <span class="project-year">2025 · Live</span>
+            </div>
+            <h3 class="project-title">Sidy CSB Apple — Smartphones Dakar</h3>
+            <p class="project-desc">
+                Site vitrine pour un revendeur iPhone et smartphones à Dakar. Catalogue produits, SEO local Sénégal.
+            </p>
+            <div class="project-tech">
+                <span class="tech-badge">Next.js</span><span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Tailwind</span><span class="tech-badge">SEO</span>
+            </div>
+            <div class="project-links">
+                <a href="https://sidycsbapple.com" target="_blank" class="link-demo">🌐 Voir le site</a>
+            </div>
+        </div>
 
+        <!-- ADD SISTERLOCKS -->
+        <div class="project-card reveal">
+            <div class="project-top">
+                <div class="project-emoji">💇</div>
+                <span class="project-year">2025 · Live</span>
+            </div>
+            <h3 class="project-title">Add Sisterlocks — Site Vitrine Rennes</h3>
+            <p class="project-desc">
+                Site vitrine pour un salon spécialisé sisterlocks basé à Rennes, France. Présentation des services, prise de contact et SEO local.
+            </p>
+            <div class="project-tech">
+                <span class="tech-badge">Next.js</span><span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Tailwind</span><span class="tech-badge">SEO</span>
+            </div>
+            <div class="project-links">
+                <a href="https://add-sisterlocks.fr" target="_blank" class="link-demo">🌐 Voir le site</a>
+            </div>
+        </div>
+
+        <!-- YOONU DAWAL MOBILE -->
+        <div class="project-card reveal">
+            <div class="project-top">
+                <div class="project-emoji">📲</div>
+                <span class="project-year">2025 · En cours</span>
+            </div>
+            <h3 class="project-title">Yoonudawal Mobile — App iOS & Android</h3>
+            <p class="project-desc">
+                Application mobile React Native de la plateforme e-learning Yoonudawal. Disponible sur App Store & Play Store (en cours de déploiement).
+            </p>
+            <div class="project-tech">
+                <span class="tech-badge">React Native</span><span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">App Store</span><span class="tech-badge">Play Store</span>
+            </div>
+        </div>
 
     </div>
 </section>
@@ -519,31 +636,40 @@
             </div>
         </div>
         <div class="edu-item reveal">
-            <div class="edu-year"><span class="edu-year-badge">2023–2024</span></div>
+            <div class="edu-year"><span class="edu-year-badge">2023–2025</span></div>
             <div class="edu-dot"></div>
             <div class="edu-content">
                 <div class="edu-degree">Master Informatique de Gestion</div>
                 <div class="edu-school">Institut Africain de Management (IAM), Dakar</div>
                 <div class="edu-desc">Formation combinant management, systèmes d'information et développement applicatif.</div>
-                <span class="edu-mention">🏅 Mention Très Bien</span>
+                <span class="edu-mention">🏅 Mention Excellente</span>
             </div>
         </div>
         <div class="edu-item reveal">
-            <div class="edu-year"><span class="edu-year-badge">2020–2023</span></div>
+            <div class="edu-year"><span class="edu-year-badge">2021–2022</span></div>
             <div class="edu-dot"></div>
             <div class="edu-content">
-                <div class="edu-degree">Licence Informatique de Gestion</div>
-                <div class="edu-school">Institut Africain de Management (IAM), Dakar</div>
-                <div class="edu-desc">Fondamentaux en informatique, programmation, bases de données et systèmes d'information.</div>
+                <div class="edu-degree">Cycle Ingénieur Informatique (1ère année)</div>
+                <div class="edu-school">HESTIM, Casablanca</div>
+                <div class="edu-desc">Première année d'ingénierie informatique — algorithmique, systèmes et réseaux.</div>
             </div>
         </div>
         <div class="edu-item reveal">
             <div class="edu-year"><span class="edu-year-badge">2019–2021</span></div>
             <div class="edu-dot"></div>
             <div class="edu-content">
-                <div class="edu-degree">Classes Préparatoires (2 ans)</div>
-                <div class="edu-school">Excellence Universitaire Africaine (EUA)</div>
+                <div class="edu-degree">Classes Préparatoires (Maths, Sciences, Physique)</div>
+                <div class="edu-school">Excellence Universitaire Africaine, Dakar</div>
                 <div class="edu-desc">Préparation aux grandes écoles — renforcement en mathématiques, physique, informatique et sciences.</div>
+            </div>
+        </div>
+        <div class="edu-item reveal">
+            <div class="edu-year"><span class="edu-year-badge">2019</span></div>
+            <div class="edu-dot"></div>
+            <div class="edu-content">
+                <div class="edu-degree">Baccalauréat Série S</div>
+                <div class="edu-school">CCHT, Dakar</div>
+                <div class="edu-desc">Baccalauréat scientifique.</div>
             </div>
         </div>
     </div>
@@ -590,7 +716,7 @@
 
 <!-- FOOTER -->
 <footer>
-    <span>© 2025 Ababacar Sagna — Data Scientist & AI Engineer</span>
+    <span>© 2025 Ababacar Sagna — Data Scientist · IA Générative & NLP</span>
     <span class="footer-loc">Dakar, Sénégal 🇸🇳</span>
 </footer>
 
