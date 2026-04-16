@@ -301,11 +301,12 @@ section { padding:100px 5%; }
     font-size:0.7rem; color:var(--accent); font-weight:500;
 }
 
-.project-links { display:flex; gap:12px; }
+.project-links { display:flex; gap:12px; position:relative; z-index:2; }
 .link-github, .link-demo {
     display:inline-flex; align-items:center; gap:6px;
     padding:10px 20px; border-radius:10px;
     font-size:0.8rem; font-weight:600; text-decoration:none; transition:all 0.2s;
+    position:relative; z-index:2;
 }
 .link-github {
     background:rgba(15,23,42,0.05); border:1px solid var(--border); color:var(--text);
